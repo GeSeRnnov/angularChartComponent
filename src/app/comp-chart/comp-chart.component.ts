@@ -101,7 +101,7 @@ export class CompChartComponent implements OnInit {
 			});
 			this.balanceTotal +=  (companyCategory === 'All' ? item.balance : Number(item.category === companyCategory) * item.balance);
 			this.monthBalanceTotal +=  (companyCategory === 'All' ? item.monthBalance : Number(item.category === companyCategory) * item.monthBalance);
-			this.isPresentCheck({_id: item.id, name: item.category },this.categoryOptions) ? this.categoryOptions.push({_id: item.id, name: item.category }): null;
+			this.isPresentCheck({_id: item.id, name: item.category }, this.categoryOptions) ? this.categoryOptions.push({_id: item.id, name: item.category }): null;
 			this.fillCompany(companyCategory, item.category, item.id, item.name );
 		});
 
@@ -117,7 +117,6 @@ export class CompChartComponent implements OnInit {
 	handleSelected(){
 		this.onItemSelected.emit(this.companySelectd)
 	}
-
 
 	// Инициализация графика и значений
 	ngOnInit() {

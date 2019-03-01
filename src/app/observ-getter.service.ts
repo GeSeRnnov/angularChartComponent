@@ -14,23 +14,15 @@ export interface AnonymousSubscription {
   unsubscribe(): void;
 };
 
-// @Input({
-// 	Companies: any = {}
-// })
 
-// принимаем исходный перечень компаний
 export class ObservGetterService {
 	
 	
+	// принимаем исходный перечень компаний
 	@Input() Companies: any;
 
 	getCompanies(): Observable<any[]>{
 		return of(Companies);
 	}
-
-
-	// getData = () => {
-	// 	return Companies.companies[0].name;
-	// }
 
 };
