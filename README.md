@@ -1,2 +1,2 @@
 # angularChartComponent
-Vladis interview task
+Задача на собеседовании в ООО Владис.
