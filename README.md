@@ -1,0 +1,2 @@
+# angularChartComponent
+Vladis interview task
