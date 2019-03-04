@@ -3,10 +3,9 @@ import {  Observable, of } from 'rxjs';
 import { Companies } from './companies';
 
 
-@Injectable({
-  providedIn: 'root',
-})
-
+// @Injectable({
+//   providedIn: 'root',
+// })
 
 export type TeardownLogic = AnonymousSubscription | Function | void;
 
@@ -16,8 +15,6 @@ export interface AnonymousSubscription {
 
 
 export class ObservGetterService {
-	
-	
 	// принимаем исходный перечень компаний
 	@Input() Companies: any;
 

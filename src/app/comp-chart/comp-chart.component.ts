@@ -17,45 +17,42 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 export class CompChartComponent implements OnInit {
 
 	// Инициализация переменных
-	balanceTotal: number = 0;
-	monthBalanceTotal: number = 0;
-	nameOptions: any = [];
-	categoryOptions: any = [];
-	LineChart:any;
-	chartCategories={};
-	chartCompanies={};
-	companySelectd: any;
-	isCompanySelected: boolean = false;
+	balanceTotal: number = 0;						//баланс нарастающим итогом
+	monthBalanceTotal: number = 0;					//месячный баланс нарастающим итогом
+	nameOptions: any = [];							//перечень наименований компаний для комбобокса
+	categoryOptions: any = [];						//перечень наименований категорий для комбобокса
+	LineChart:any;									//график
+	companySelectd: any;							//отобранный пользователем итем компании из комбобокса
+	isCompanySelected: boolean = false;				//признак выбора отдельной компании для показа/скрытия кнопки
 
 
-	// Конфигурации чекбоксов
+	// Конфигурации комбобоксов
 	configCategory = {displayKey: "name", 
 		placeholder: 'Все категории',
 		searchPlaceholder: 'поиск',
 		search: true,
-		limitTo: 3
+		limitTo: 5
 	};
 
 	configCompany = {displayKey: "name", 
 		placeholder: 'Все вхождения',
 		searchPlaceholder: 'поиск',
 		search: true,
-		limitTo: 3
+		limitTo: 5
 	};
 
-
-  	// Получаем компании из смарт объекта
+  	// Получаем компании из смарт объекта и отправляем в смарт отобранный пользователем итем.
   	@Input() inputItems: any;
   	@Output() onItemSelected = new EventEmitter<string>();
 
-	// изменени комбобокса категорий
+	//функция изменения комбобокса категорий
 	changeCategory($event: any) {
 		const companyCategory = $event.value === undefined ? 'All' : $event.value.name;
 		const {balanceTotalLocal, monthBalanceTotalLocal, weekStatsAggregated} = this.agregate(this.inputItems, companyCategory);
 		this.manageChart(weekStatsAggregated);
 	}
 
-	// изменени комбобокса кампаний
+	//функция изменения комбобокса кампаний
 	changeCompany($event: any) {
 		let idSelected: number  = $event.value !== undefined ? $event.value._id : false;
 		this.isCompanySelected = $event.value !== undefined ? true : false ;
@@ -68,7 +65,7 @@ export class CompChartComponent implements OnInit {
 		return obj.find( o => o.name === search.name) === undefined ;
 	}
 
-	// заполнение списка компний на основании выбранной категории
+	//функция заполнения списка компний на основании выбранной категории
 	fillCompany(filteredCategory, category, id, name){
 		switch(filteredCategory){
 			case 'All': 
@@ -96,13 +93,13 @@ export class CompChartComponent implements OnInit {
 		Object.keys(data.items).map(dataId => {  		
 			item = data.items[dataId];
 			Object.keys(item.weekStats).map(day => {
-				addnum = companyCategory === 'All' ? item.weekStats[day] : Number(item.category === companyCategory) * item.weekStats[day];;
+				addnum = companyCategory === 'All' ? item.weekStats[day] : Number(item.category === companyCategory) * item.weekStats[day];
 				weekStatsTotal = Object.assign({},weekStatsTotal,{ [day]: weekStatsTotal[day] + addnum });
 			});
-			this.balanceTotal +=  (companyCategory === 'All' ? item.balance : Number(item.category === companyCategory) * item.balance);
-			this.monthBalanceTotal +=  (companyCategory === 'All' ? item.monthBalance : Number(item.category === companyCategory) * item.monthBalance);
-			this.isPresentCheck({_id: item.id, name: item.category }, this.categoryOptions) ? this.categoryOptions.push({_id: item.id, name: item.category }): null;
-			this.fillCompany(companyCategory, item.category, item.id, item.name );
+			this.balanceTotal += companyCategory === 'All' ? item.balance : Number(item.category === companyCategory) * item.balance;
+			this.monthBalanceTotal += companyCategory === 'All' ? item.monthBalance : Number(item.category === companyCategory) * item.monthBalance;
+			this.isPresentCheck({_id: item.id, name: item.category }, this.categoryOptions) ? this.categoryOptions.push({_id: item.id, name: item.category }) : null;
+			this.fillCompany( companyCategory, item.category, item.id, item.name );
 		});
 
 		return {

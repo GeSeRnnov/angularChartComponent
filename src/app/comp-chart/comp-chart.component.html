@@ -7,24 +7,16 @@
   <strong> Агрегированный баланс: </strong>{{balanceTotal}}. <span style="padding-left:2em"></span>   <strong> Месячный агрегированный баланс: </strong>{{monthBalanceTotal}}.
 </div>
 
-
 <div >
-  <!-- <h5> -->
     <div style="padding-top: 5px; padding-bottom: 5px;">
-      
         Выбор категори.
     </div>
-<!-- </h5> -->
   <div  style="width: 15%">
     <ngx-select-dropdown tabindex="0" (change)="changeCategory($event)" [multiple]="false" [(ngModel)]="multiSelect" [config]="configCategory" [options]="categoryOptions"></ngx-select-dropdown>
   </div>
-
-  <!-- <br> -->
-  <!-- <h5> -->
     <div style="padding-top: 5px; padding-bottom: 5px;">
   Выбор компании.
     </div>
-<!-- </h5> -->
   <div  style="width: 15%">
     <ngx-select-dropdown tabindex="1" (change)="changeCompany($event)" [multiple]="false" [(ngModel)]="objectsArray" [config]="configCompany" [options]="nameOptions"></ngx-select-dropdown>
   </div>

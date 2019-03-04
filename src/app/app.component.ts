@@ -13,8 +13,8 @@ export class AppComponent {
 
   ngOnInit(){
   }
-
 }
+
 
 
 // !!!!!!!!!!!!!!!Задание!!!!!!!!!!!!!!!!!
